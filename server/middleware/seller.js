@@ -2,7 +2,7 @@ const {
     jwt 
 } = require("../../modules");
 const { 
-    PgAdmin 
+    NeonDB 
 } = require("../db");
 
 const seller_authentication = (req, res, next) => {
@@ -36,7 +36,7 @@ const check_seller = (req, res, next) => {
                 next();
             } else {
                 //console.log(decodedToken);
-                PgAdmin
+                NeonDB
                 .then((pool) => {
                     pool.query(`select * from "register" where "userid" = '${decodedToken.id}'`)
                     .then((result, err) => {

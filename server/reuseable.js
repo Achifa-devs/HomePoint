@@ -1,4 +1,4 @@
-PgAdmin.then((pool) => {
+NeonDB.then((pool) => {
 
 })
 .catch((err) => {

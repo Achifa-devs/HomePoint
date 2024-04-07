@@ -1,4 +1,4 @@
-const { PgAdmin } = require("../../db");
+const { NeonDB } = require("../../db");
 const { shortId } = require("../../modules");
 const { erroDeletion } = require("../../reuseables/get");
 
@@ -23,7 +23,7 @@ async function UpdateProduct(req,res) {
         let fileid = shortId.generate();
     
         let fileUploadResponse = async(file,type) => (
-            await PgAdmin.then((pool) => {
+            await NeonDB.then((pool) => {
                 return(
                     pool.query(
                         `INSERT INTO property_files(
@@ -64,7 +64,7 @@ async function UpdateProduct(req,res) {
         
     
         new Promise(async(resolve, reject) => {
-            await PgAdmin
+            await NeonDB
             .then(async(pool) => {
                     
                 pool.query(`UPDATE "properties_meta_data" set 
@@ -101,7 +101,7 @@ async function UpdateProduct(req,res) {
             }) 
         })
         .then(async() => 
-            await PgAdmin
+            await NeonDB
             .then(async(pool) => 
                     
                 await pool.query(`DELETE from "property_files" where "property_ref" = '${property_ref}'`)
@@ -149,7 +149,7 @@ async function UpdatePwd(req,res) {
     }=req.body
     
     let hashedPwd = await bcrypt.hash(pwd, 20);
-    await PgAdmin
+    await NeonDB
     .then(async(pool) => {
             
         pool.query(`UPDATE "register" set 

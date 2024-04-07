@@ -8,7 +8,7 @@ async function DeleteProduct(req,res) {
  
     try {
         new Promise((resolve, reject) => {
-            PgAdmin
+            NeonDB
             .then(async(pool) => {
                     
                 pool.query(`DELETE from "properties_meta_data" where "property_ref" = '${property_ref}'`)
@@ -32,7 +32,7 @@ async function DeleteProduct(req,res) {
             }) 
         }) 
         .then(() => {
-            PgAdmin
+            NeonDB
             .then(async(pool) => {
                     
                 pool.query(`DELETE from "properties_files" where "property_ref" = '${property_ref}'`)

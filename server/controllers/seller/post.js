@@ -2,7 +2,7 @@ const {
     aleaRNGFactory 
 } = require("number-generator");
 const { 
-    PgAdmin 
+    NeonDB 
 } = require("../../db");
 const { 
     bcrypt, 
@@ -49,7 +49,7 @@ async function RegisterSeller(req,res) {
         let accounNo = uInt32()
 
         let registrationResponse = async() => (
-            await PgAdmin.then((pool) => {
+            await NeonDB.then((pool) => {
                 return(
                     pool.query(
                         `INSERT INTO register(
@@ -112,7 +112,7 @@ async function RegisterSeller(req,res) {
         )
 
         let walletCreationResponse = async() => (
-            await PgAdmin.then((pool) => {
+            await NeonDB.then((pool) => {
                 return(
                     pool.query(
                         `INSERT INTO wallet(
@@ -151,7 +151,7 @@ async function RegisterSeller(req,res) {
         )
 
         let erroDeletion = async() => (
-            await PgAdmin.then((pool) => {
+            await NeonDB.then((pool) => {
                 return(
                     pool.query(
                         `DELETE FROM register WHERE userid = '${userid}'`
@@ -211,7 +211,7 @@ async function LoginSeller(req,res) {
  
     try {
         new Promise((resolve, reject) => {
-            PgAdmin
+            NeonDB
             .then(async(pool) => {
                     
                 pool.query(`select "id" from "register" where "email" = '${email}'`, (err, result) => {
@@ -234,7 +234,7 @@ async function LoginSeller(req,res) {
         })
         .then(async(id) => {
             return(
-                PgAdmin
+                NeonDB
                 .then(async(pool) => {
                     let database_return_value = await pool.query(
                         `select * from  "register" where "id" = '${id}'`
@@ -314,7 +314,7 @@ async function PostNewPropertyMetaData(req,res) {
         let fileid = shortId.generate();
 
         let productUploadResponse = async() => (
-            await PgAdmin.then((pool) => {
+            await NeonDB.then((pool) => {
                 return(
                     pool.query(
                         `INSERT INTO properties_meta_data(
@@ -369,7 +369,7 @@ async function PostNewPropertyMetaData(req,res) {
         )
 
         let fileUploadResponse = async(file,type) => (
-            await PgAdmin.then((pool) => {
+            await NeonDB.then((pool) => {
                 return(
                     pool.query(
                         `INSERT INTO property_files(

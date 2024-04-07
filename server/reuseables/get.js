@@ -1,8 +1,8 @@
-const { PgAdmin } = require("../db");
+const { NeonDB } = require("../db");
 
 async function GetProperty(property_ref) {
     return(
-        await PgAdmin
+        await NeonDB
         .then(async(pool) => {        
             await pool.query(`SELECT * from "properties_meta_data" where "property_ref" = '${property_ref}'`)
             .then((result) => result.rows)
@@ -14,7 +14,7 @@ async function GetProperty(property_ref) {
 
 async function GetProperties() {
     return(
-        await PgAdmin
+        await NeonDB
         .then(async(pool) => {        
             await pool.query(`SELECT * from "properties_meta_data"`)
             .then((result) => result.rows)
@@ -26,7 +26,7 @@ async function GetProperties() {
 
 async function GetPropertyFiles(property_ref) {
     return(
-        await PgAdmin
+        await NeonDB
         .then(async(pool) => {        
             await pool.query(`SELECT * from "property_files" where "property_ref" = '${property_ref}'`)
             .then((result) => result.rows)
@@ -38,7 +38,7 @@ async function GetPropertyFiles(property_ref) {
 
 async function GetPropertyFile(property_ref) {
     return(
-        await PgAdmin
+        await NeonDB
         .then(async(pool) => {        
             await pool.query(`SELECT * from "property_files" where "property_ref" = '${property_ref}'`)
             .then((result) => result.rows[0])
@@ -50,7 +50,7 @@ async function GetPropertyFile(property_ref) {
 
 async function GetUserWallet(userid) {
     return(
-        await PgAdmin
+        await NeonDB
         .then(async(pool) => {        
             await pool.query(`SELECT * from "wallet" where "userid" = '${userid}'`)
             .then((result) => result.rows)
@@ -62,7 +62,7 @@ async function GetUserWallet(userid) {
 
 async function GetUserTransactions(userid) {
     return(
-        await PgAdmin
+        await NeonDB
         .then(async(pool) => {        
             await pool.query(`SELECT * from "transactions" where "userid" = '${userid}'`)
             .then((result) => result.rows)
@@ -74,7 +74,7 @@ async function GetUserTransactions(userid) {
 
 async function GetUser(userid) {
     return(
-        await PgAdmin
+        await NeonDB
         .then(async(pool) => {        
             await pool.query(`SELECT * from "register" where "userid" = '${userid}'`)
             .then((result) => result.rows)
@@ -86,7 +86,7 @@ async function GetUser(userid) {
 
 async function GetClicks() {
     return(
-        await PgAdmin
+        await NeonDB
         .then(async(pool) => {        
             await pool.query(`SELECT * from "clicks"`)
             .then((result) => result.rows.length)
@@ -98,7 +98,7 @@ async function GetClicks() {
 
 async function GetImpressions() {
     return(
-        await PgAdmin
+        await NeonDB
         .then(async(pool) => {        
             await pool.query(`SELECT * from "impressions"`)
             .then((result) => result.rows.length)
@@ -110,7 +110,7 @@ async function GetImpressions() {
 
 async function GetLikes() {
     return(
-        await PgAdmin
+        await NeonDB
         .then(async(pool) => {        
             await pool.query(`SELECT * from "likes"`)
             .then((result) => result.rows.length)
@@ -122,7 +122,7 @@ async function GetLikes() {
 
 
 let erroDeletion = async(property_ref) => (
-    await PgAdmin.then((pool) => {
+    await NeonDB.then((pool) => {
         return(
             pool.query(
                 `DELETE FROM properties_meta_data WHERE property_ref = '${property_ref}'`
